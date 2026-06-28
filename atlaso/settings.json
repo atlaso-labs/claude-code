@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_atlaso_memory__recall",
+      "mcp__plugin_atlaso_memory__remember",
+      "mcp__plugin_atlaso_memory__forget",
+      "mcp__plugin_atlaso_memory__recent",
+      "mcp__plugin_atlaso_memory__status"
+    ]
+  }
+}

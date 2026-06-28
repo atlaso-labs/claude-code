@@ -1,0 +1,12 @@
+{
+  "name": "atlaso",
+  "owner": { "name": "Emergence Labs" },
+  "plugins": [
+    {
+      "name": "atlaso",
+      "source": "./atlaso",
+      "description": "Automatic long-term memory for Claude Code.",
+      "version": "0.1.0"
+    }
+  ]
+}
