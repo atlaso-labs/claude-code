@@ -1,9 +1,11 @@
 {
   "name": "atlaso",
   "displayName": "Atlaso Memory",
-  "version": "0.1.5",
-  "description": "Automatic long-term memory for Claude Code — recalls relevant context every turn, captures what matters, and syncs across sessions and devices.",
-  "author": { "name": "Atlaso Labs Inc." },
+  "version": "0.1.6",
+  "description": "Automatic long-term memory for Claude Code \u2014 recalls relevant context every turn, captures what matters, and syncs across sessions and devices.",
+  "author": {
+    "name": "Atlaso Labs Inc."
+  },
   "homepage": "https://atlaso.ai",
   "license": "MIT"
 }

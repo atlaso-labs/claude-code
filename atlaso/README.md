@@ -1,4 +1,34 @@
-# Atlaso × Claude Code
+# Atlaso — memory for Claude Code
+
+**Claude Code forgets everything the moment a session ends. Atlaso remembers** —
+it recalls your decisions, conventions, and context before every prompt and
+captures what's new after every turn. Fully automatic; nothing to type.
+
+## Install
+
+1. Create a free account at [app.atlaso.ai](https://app.atlaso.ai/sign-in) and
+   follow the connect flow for Claude Code (it authorizes this device), then:
+
+```
+/plugin marketplace add atlaso-labs/claude-code
+/plugin install atlaso@atlaso
+```
+
+**What you get**
+
+- One memory across every AI tool you use — what Claude Code learns, Cursor, Codex, and the rest already know
+- Personal memory that follows you, plus per-project memory keyed to each repo
+- Secrets scrubbed client-side before anything is stored; your memory is never trained on or sold
+- Free for one device and one tool — no credit card ([pricing](https://www.atlaso.ai/pricing))
+
+**Links:** [Why Atlaso for Claude Code](https://www.atlaso.ai/for/claude-code) ·
+[Setup guide](https://docs.atlaso.ai/tools/claude-code) ·
+[What is an AI memory layer?](https://www.atlaso.ai/what-is-an-ai-memory-layer) ·
+[Dashboard](https://app.atlaso.ai/sign-in)
+
+---
+
+## How it's built (for the curious)
 
 The Claude Code connector for Atlaso memory. Lives under `platform/tools/<tool>/`
 — one folder per tool we support (Claude Code first, then Claude Desktop, Codex, …).
