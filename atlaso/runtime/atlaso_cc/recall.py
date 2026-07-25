@@ -39,7 +39,12 @@ def run(payload: dict, client) -> dict | None:
     # server record which memories were injected this session so the SessionEnd
     # usefulness judge can later grade them (the recall-usefulness feedback loop).
     session = payload.get("session_id") or payload.get("session")
-    res = client.recall(prompt, limit=limit, project=_project.project_key(), session=session)
+    # Project scope from the hook event's cwd (process cwd is the vendored
+    # runtime/, never the user's repo — same fix as capture).
+    from pathlib import Path
+    cwd = payload.get("cwd")
+    project = _project.project_key(Path(cwd)) if cwd else _project.project_key()
+    res = client.recall(prompt, limit=limit, project=project, session=session)
     block = _render.recall_block(res, uid=_shim.user_label())
     if not block:
         return None

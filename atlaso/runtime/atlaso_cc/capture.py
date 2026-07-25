@@ -46,7 +46,12 @@ def run(payload: dict, client) -> bool:
         user_text = (payload.get("prompt") or "").strip()
     if not user_text:
         return False
-    return bool(client.capture(user_text, asst_text or None).get("saved"))
+    # Project attribution from the hook event's cwd — the process cwd is the
+    # plugin's vendored runtime/ (the shell wrapper cds there), which used to
+    # mint a fake "runtime-<hash>" project per plugin version and hide those
+    # memories from recall forever (field deposit 52c7e97d).
+    return bool(client.capture(user_text, asst_text or None,
+                               project_dir=payload.get("cwd") or None).get("saved"))
 
 
 def main() -> int:
