@@ -1,8 +1,8 @@
 {
   "name": "atlaso",
   "displayName": "Atlaso Memory",
-  "version": "0.1.7",
-  "description": "Automatic long-term memory for Claude Code \u2014 recalls relevant context every turn, captures what matters, and syncs across sessions and devices.",
+  "version": "0.1.8",
+  "description": "Automatic long-term memory for Claude Code — recalls relevant context every turn, captures what matters, and syncs across sessions and devices.",
   "author": {
     "name": "Atlaso Labs Inc."
   },
