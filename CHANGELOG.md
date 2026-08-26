@@ -2,6 +2,28 @@
 
 All notable changes to the Atlaso Memory plugin.
 
+## [0.1.10] — 2026-08-27
+
+### Added
+- **The plugin now proves its install actually works, instead of looking fine
+  while half-dead.** A Claude Code plugin can be installed, appear healthy, and
+  still have its automatic memory silently broken — the hooks are registered but
+  the runtime behind them fails on import, or the credential is never accepted, so
+  nothing ever reaches your account. Until now the only visible signal was "a
+  memory got written", and that signal is misleading: the memory *tools* write on
+  their own path and keep working even when automatic capture is completely dead.
+
+  Two honest signals are now reported. The first is sent only after a session's
+  memory sync has completed a real authenticated round-trip — not merely returned,
+  which a failed sync also does — so it can only fire if the entire chain worked.
+  The second is sent after one of the memory tools has actually run and returned,
+  rather than when the tool server starts, because a server that starts and then
+  fails is exactly the broken case worth catching.
+
+  Both are sent in the background, carry no memory content, and cannot slow down,
+  change, or break anything you do — a health check that can break what it watches
+  is worse than none.
+
 ## [0.1.9] — 2026-08-03
 
 ### Fixed

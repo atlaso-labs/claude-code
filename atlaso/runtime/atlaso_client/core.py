@@ -488,18 +488,34 @@ class Client:
 
     # ── sync ─────────────────────────────────────────────────────────────────
     def sync_once(self) -> dict:
-        """Push the outbox, then pull new server deposits. Returns {pushed, pulled}.
-        Safe to call from a SessionEnd hook or a background thread. In LOCAL-ONLY
-        (no token / revoked / non-active tool) this is a no-op for the cloud — the
-        local cache + outbox are left intact so nothing is lost before re-linking."""
+        """Push the outbox, then pull new server deposits.
+
+        Returns {pushed, pulled, synced}. Safe to call from a SessionEnd hook or a
+        background thread. In LOCAL-ONLY (no token / revoked / non-active tool) this
+        is a no-op for the cloud — the local cache + outbox are left intact so
+        nothing is lost before re-linking.
+
+        `synced` IS THE ONLY HONEST SUCCESS SIGNAL HERE, and it exists because this
+        method DOES NOT RAISE ON FAILURE. A transport error is caught, routed to
+        _note_auth_failure, and reported as {"pushed": 0, "pulled": 0} — byte-
+        identical to a healthy sync with an empty outbox. Local-only returns the
+        same dict without touching the network at all. So a caller that treats "it
+        returned" as "it worked" is wrong on both of the paths that matter, and the
+        install canary in the SessionEnd hook is exactly such a caller: hook_capture
+        claims a real authenticated round-trip to the brain completed, which is a
+        claim only this flag can support. True here means precisely that: push and
+        pull both completed against the server. The post-sync best-effort extras
+        (reconcile, ambient refresh) are deliberately NOT part of it — they are
+        local housekeeping and their failure does not un-complete a round-trip.
+        """
         if not self._online():
-            return {"pushed": 0, "pulled": 0}
+            return {"pushed": 0, "pulled": 0, "synced": False}
         try:
             pushed = len(self._push())
             pulled = self._pull()
         except Exception as e:
             self._note_auth_failure(e)
-            return {"pushed": 0, "pulled": 0}
+            return {"pushed": 0, "pulled": 0, "synced": False}
         # One-shot junk-project-key rescue (the plugin-cwd bug) — only this
         # machine can prove which legacy keys are junk. Best-effort; marker
         # inside makes it a no-op forever after the first success.
@@ -514,7 +530,7 @@ class Client:
             self.refresh_ambient()
         except Exception:
             pass
-        return {"pushed": pushed, "pulled": pulled}
+        return {"pushed": pushed, "pulled": pulled, "synced": True}
 
     @staticmethod
     def _item_payload(it: dict, *, b64: bool = False) -> dict:
