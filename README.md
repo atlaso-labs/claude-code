@@ -46,7 +46,7 @@ we inject). Each hook → one Atlaso action:
 |---|---|---|
 | **recall** (`hooks/recall.sh`) | `UserPromptSubmit` | Inject recalled memory before each prompt. Synchronous, fast. |
 | **capture** (`hooks/capture.sh`) | `Stop` | Save the just-finished exchange. Instant **local** write (no network), synced later. |
-| **start** (`hooks/start.sh`) | `SessionStart` | Sync the cache with the cloud. Detached — never delays session open. |
+| **start** (`hooks/start.sh`) | `SessionStart` | Inject eligible personal + current-project Ambient Memory, then sync in the background. |
 | **end** (`hooks/end.sh`) | `SessionEnd` | Flush this session's memories up + pull new ones. Detached. |
 
 Injected block (no instructions — the model decides how to use it):
@@ -93,3 +93,20 @@ echo '{"prompt":"which package manager"}' | ./hooks/recall.sh   # → injects th
 ```
 
 `ATLASO_DEBUG=1` writes per-hook logs to `<atlaso dir>/atlaso-*.log`.
+
+## Ambient Memory at session start
+
+When enabled on an eligible plan, the start hook requests a brief for this tool
+and the host event's project directory. Personal context can accompany the
+current project's context. Missing or untrustworthy project identity requests
+personal context only. A first session can receive a brief without a local cache.
+Each session validates the current server policy; disabled, offline, rejected,
+or incompatible responses inject no Ambient Memory. Reopening after recovery
+retries automatically. Per-turn recall remains a separate feature.
+
+The Python start path has a three-second budget on POSIX; the host hook manifest
+sets a five-second timeout, including runtime startup. The latter is also the
+Windows bound. First-time runtime installation can exceed that budget and yield
+no brief until dependencies are available. These source changes require publishing
+the rebuilt plugin and updating the installed version; a source checkout alone
+does not update a user's plugin. Host versions must actually execute SessionStart.

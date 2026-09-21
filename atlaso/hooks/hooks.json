@@ -28,7 +28,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/start.sh"
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/start.sh",
+            "timeout": 5
           }
         ]
       }
