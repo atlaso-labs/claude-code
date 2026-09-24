@@ -29,7 +29,13 @@ def is_recursive() -> bool:
 
 
 # This connector's tool id — must match the agent id the web app / brain use.
-TOOL = "claude-code"
+# Env-overridable (parity with codex/antigravity, added 2026-09-01): Grok Build
+# AUTO-READS Claude Code plugins with zero configuration, so a host other than
+# Claude Code can execute these very bytes — a hardcoded id would then tag every
+# capture "claude-code" (wrong Connections entry, wrong free-plan slot). The
+# hook launchers of any such host must export ATLASO_TOOL; Claude Code itself
+# sets nothing and keeps the default.
+TOOL = os.environ.get("ATLASO_TOOL") or "claude-code"
 
 
 def make_client():

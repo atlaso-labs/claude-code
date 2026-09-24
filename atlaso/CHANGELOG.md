@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.12] - 2026-09-24
+
+Intel Macs now get memory. On an Intel (x86_64) Mac the plugin's Python runtime failed to install, because the newest cryptography release has no Intel Mac wheel, and the hooks then ran silently with no memory. The runtime now asks for cryptography 48.x on Intel Macs only; every other platform keeps cryptography 50.x. No other behavior changes. This build was tested with unit and launcher tests; it was not run inside a live Claude Code session.
+
+## [0.1.11] — 2026-09-21
+
+Project-bound SessionStart context with fresh policy checks and a bounded hook deadline. Preserve reconnect notices until output is flushed. Prepared as an unpublished candidate; actual-host delivery remains a separate qualification gate.
+
 All notable changes to the Atlaso Memory plugin.
 
 ## [0.1.10] — 2026-08-27
@@ -48,6 +56,3 @@ All notable changes to the Atlaso Memory plugin.
 
   The limit is deliberately kept, not removed: recall blocks your prompt while it
   runs, so an unbounded wait would turn a slow lookup into a frozen session.
-
-## 0.1.11 (2026-09-21)
-- Project-aware Ambient Memory: scoped first-session context, enrichment lineage fixes. Qualified against emergence-lab a895cf5e (core a0a461ff).
