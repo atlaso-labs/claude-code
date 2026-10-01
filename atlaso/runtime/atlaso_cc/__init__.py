@@ -10,3 +10,9 @@ lives here — each hook just reads the event and calls the client.
   end     (SessionEnd)       → flush + sync (background)
 """
 __version__ = "0.1.0"
+
+import time as _time
+
+#: When this hook process started running Python code (monotonic). The hook deadline counts
+#: from here, so interpreter imports spend the budget too (atlaso_client._deadline.run_hook).
+STARTED = _time.monotonic()
