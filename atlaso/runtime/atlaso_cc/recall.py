@@ -45,7 +45,7 @@ def run(payload: dict, client) -> dict | None:
     cwd = payload.get("cwd")
     project = _project.project_key(Path(cwd)) if cwd else _project.project_key()
     res = client.recall(prompt, limit=limit, project=project, session=session)
-    block = _render.recall_block(res, uid=_shim.user_label())
+    block = _render.recall_block(res, tool=_shim.TOOL)
     if not block:
         return None
     return {

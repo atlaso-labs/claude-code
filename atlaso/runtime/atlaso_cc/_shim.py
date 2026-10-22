@@ -65,13 +65,11 @@ def make_local_client():
 
 
 def user_label() -> str:
-    """A friendly user label for the recall block header (the connected user_id, or
-    'you'). Cosmetic; never raises."""
-    try:
-        from atlaso_client import config
-        return (config.load_auth() or {}).get("user_id") or "you"
-    except Exception:
-        return "you"
+    """The label the recall block header uses for the user: always "you". It used to be the
+    connected user_id read from auth.json, which put an account identifier in front of the
+    model (SecurityEngineer 4c26fd7d finding 3). Kept so existing callers and probes still
+    import it; it reads nothing."""
+    return "you"
 
 
 def maybe_autoconnect() -> bool:
