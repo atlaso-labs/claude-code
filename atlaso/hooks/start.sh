@@ -12,4 +12,6 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 atlaso_fg claude-code start "$ATLASO_START_BUDGET" atlaso_cc.start
 # Then sync in the BACKGROUND (detached) without waiting for the full sync.
 atlaso_bg claude-code start atlaso_cc.sync
+# Then, at most once a day, let the Atlaso CLI check for an update (detached, never waited on).
+atlaso_update_nudge
 exit 0

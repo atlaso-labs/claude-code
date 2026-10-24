@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.19] - 2026-10-24
+
+Atlaso keeps itself up to date. At most once a day, session start asks the Atlaso CLI to check for a newer release in the background; the hook returns at once and never waits on the network. The CLI checks a new release against its published checksums before it replaces itself, then updates this plugin through Claude Code's own `claude plugin update` command. Atlaso never edits your Claude Code settings file and never accepts anything on your behalf: if Claude Code asks you to confirm a plugin command, the update waits for you. `atlaso update --off` or `ATLASO_NO_AUTO_UPDATE=1` turns it off, and Claude Code's own update opt-outs are respected.
+
 ## [0.1.18] - 2026-10-22
 
 Memory arrives whole. Claude Code replaces any hook text over 10,000 characters with a file path and a 2,000-character preview, which often left the AI with less than one complete note. The recalled-memory block now stays under 9,000 bytes: notes are added whole, most relevant first, a note's short form is used when the server sends one and only that fits, and a closing line says how many notes did not fit and that the Atlaso recall tool can show them. A recall that already fits prints exactly as before. A session-start brief over that size is not sent.
