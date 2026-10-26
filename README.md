@@ -4,6 +4,9 @@
 it recalls your decisions, conventions, and context before every prompt and
 captures what's new after every turn. Fully automatic; nothing to type.
 
+## Why this exists
+Claude Code remembers a project with CLAUDE.md and its own auto memory, and both stay on one machine and inside Claude Code. This connector gives Claude Code a memory that also shows up in Codex, Cursor and your other tools, and on your other computers on Pro: the decisions behind the code, your conventions beyond CLAUDE.md, where you left off, and how you like to work. Recall runs before every prompt and capture after every turn; you never type "remember this". Free covers one device and one active tool. [How it works](https://www.atlaso.ai/for/claude-code) · [Docs](https://docs.atlaso.ai/tools/claude-code)
+
 ## Install
 
 1. Create a free account at [app.atlaso.ai](https://app.atlaso.ai/sign-in) and
